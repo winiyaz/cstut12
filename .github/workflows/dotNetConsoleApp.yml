@@ -80,12 +80,12 @@ jobs:
       if: matrix.os == 'windows-latest'
       shell: pwsh
       run: |
-        Compress-Archive -Path ./publish/* -DestinationPath cstut1-windows.zip
+        Compress-Archive -Path ./publish/* -DestinationPath cstut12-windows.zip
 
     - name: Compress Artifacts (Linux)
       if: matrix.os == 'ubuntu-latest'
       run: |
-        tar -czvf cstut1-linux.tar.gz -C ./publish .
+        tar -czvf cstut12-linux.tar.gz -C ./publish .
 
     - name: Clean Up (Optional)
       shell: pwsh  # Use PowerShell Core
@@ -99,10 +99,10 @@ jobs:
     - name: Upload Artifact
       uses: actions/upload-artifact@v4
       with:
-        name: cstut1-${{ matrix.os }}
+        name: cstut12-${{ matrix.os }}
         path: |
-          cstut1-windows.zip
-          cstut1-linux.tar.gz
+          cstut12-windows.zip
+          cstut12-linux.tar.gz
 
   release:
     needs: build
@@ -120,12 +120,12 @@ jobs:
     - name: Create Release
       uses: softprops/action-gh-release@v1
       with:
-        tag_name: cstut1-v${{ github.run_number }}
-        name: cstut1 Release v${{ github.run_number }}
+        tag_name: cstut12-v${{ github.run_number }}
+        name: cstut12 Release v${{ github.run_number }}
         draft: false
         prerelease: false
         files: |
-          ./artifacts/cstut1-windows-latest/cstut1-windows.zip
-          ./artifacts/cstut1-ubuntu-latest/cstut1-linux.tar.gz
+          ./artifacts/cstut12-windows-latest/cstut12-windows.zip
+          ./artifacts/cstut12-ubuntu-latest/cstut12-linux.tar.gz
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
