@@ -2,8 +2,6 @@
  Starting the course here 
  */
 
-using System;
-
 class Program
 {
     // Main function which doesnt have an output but calling the function below it
@@ -11,7 +9,7 @@ class Program
     {
         PrintToConsole();
         MyPrintaz(); // Car Graphic 
-        VariableAndTypes();
+        VariableAndTypes(); // Printing Variable types
     }
 
     // These functions will be called in Main()
@@ -41,17 +39,21 @@ ________(__)_____________(__)____
     static void VariableAndTypes()
     {
         // Understanding data datypes here 
-        Console.ForegroundColor= ConsoleColor.DarkCyan;
+        Console.ForegroundColor = ConsoleColor.DarkCyan;
 
         Console.WriteLine(@"
 -----------------------
 Variables and Types
 -----------------------
 ");
-        
+
         //Integer variables - Signed or Unsigned 
         int age = 20;
-        Console.WriteLine(age);
+        Console.WriteLine($"Fetish Misterss Age : {age}");
+
+        // Decimal Point number 
+        float temp = 20.4f;
+        Console.WriteLine($"Temperature of punnai : {temp}");
 
 
         Console.ResetColor();
