@@ -1,2 +1,4 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿/*
+ Starting the course here 
+ */
 Console.WriteLine("Hello, World!");
