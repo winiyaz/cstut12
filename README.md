@@ -2,6 +2,12 @@
 1. Work for the CSCrashCourse goes in here
 2. This will have the notes
 
+# C# Cheat Sheets
+1. Collection of cheatsheets to look at for learning C#
+
+https://quickref.me/cs.html
+- This one is similar to the cheatsheet for python
+
 # Notes section 
 1. MVC - Model View Controller Architecture of the Csharp Applications 
 2. `.sln` - Collection of several projects
@@ -147,3 +153,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 - Tested and working
+
+# Regarding Math Ops
+1. When doing math operations
