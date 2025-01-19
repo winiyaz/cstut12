@@ -11,6 +11,7 @@ class Program
         MyPrintaz(); // Car Graphic 
         VariableAndTypes(); // Printing Variable types
         MathOpers(); //Math Operations
+        ComparisonOpes(); // Comparison operator testin
     }
 
     // These functions will be called in Main()
@@ -183,6 +184,48 @@ Type Casting
         Console.Write($"num6 = {num6.GetType()} - casted as {num6AsDouble.GetType()}");
 
         // Reset the color
+        Console.ResetColor();
+    }
+
+    // Testing comparison operators 
+    static void ComparisonOpes()
+    {
+
+        Console.ForegroundColor = ConsoleColor.Blue;
+
+        Console.WriteLine(@"
+
+
+***
+Comparison Operators
+***
+");
+
+        // Testing the comparison operators here
+
+        int a = 10;
+        int b = 5;
+
+        bool isEqual = (a == b);
+        Console.WriteLine($"Is {a} equal to {b} : {isEqual}");
+
+        // checking inequality 
+        bool isNotEqual = (a != b);
+        Console.WriteLine($"Is {a} not equal to {b} : {isNotEqual}");
+
+        bool isGreaterThanOrEqual = (a >= b);
+        Console.WriteLine($"Is {a} greater than or equal to {b} : {isGreaterThanOrEqual}");
+
+        bool isLessThanOrEqual = (a <= b);
+        Console.WriteLine($"Is {a} less than or equal to {b} : {isLessThanOrEqual}");
+
+        Console.WriteLine(@"
+-----------------------
+Logical Operators
+-----------------------
+");
+
+
         Console.ResetColor();
     }
 }
