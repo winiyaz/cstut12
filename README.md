@@ -14,9 +14,6 @@
 - This is the yml which you will add at the end for running gh actions for building executables for windows and linux 
 
 ```yml 
-# Source
-
-# Actual yaml this has to be in the worflows with name- dotflow.yml
 name: CI/CD Pipeline for .NET Console App
 
 on:
@@ -71,19 +68,40 @@ jobs:
         path: TestResults/
       if: always()
 
-    - name: Publish Standalone Executable
-      run: dotnet publish --configuration Release -r ${{ matrix.runtime }} --self-contained -o ./publish
+    - name: Publish Single File Executable
+      run: dotnet publish --configuration Release -r ${{ matrix.runtime }} --self-contained -o ./publish /p:PublishSingleFile=true /p:PublishTrimmed=true /p:TrimMode=link
+
+    - name: List Publish Directory (Debugging)
+      run: |
+        echo "Contents of ./publish:"
+        ls -R ./publish  # For Linux
+        # dir ./publish /s  # For Windows (uncomment if needed)
+
+    - name: Clean Up Unnecessary Files (Windows)
+      if: matrix.os == 'windows-latest'
+      shell: pwsh
+      run: |
+        # Remove unnecessary files (e.g., .pdb, .xml)
+        Remove-Item -Recurse -Force ./publish/*.pdb
+        Remove-Item -Recurse -Force ./publish/*.xml
+
+    - name: Clean Up Unnecessary Files (Linux)
+      if: matrix.os == 'ubuntu-latest'
+      run: |
+        # Remove unnecessary files (e.g., .pdb, .xml)
+        find ./publish -name "*.pdb" -delete
+        find ./publish -name "*.xml" -delete
 
     - name: Compress Artifacts (Windows)
       if: matrix.os == 'windows-latest'
-      run: Compress-Archive -Path .\publish\* -DestinationPath cstut1PANTY-windows.zip
+      shell: pwsh
+      run: |
+        Compress-Archive -Path ./publish/* -DestinationPath cstut1-windows.zip
 
     - name: Compress Artifacts (Linux)
       if: matrix.os == 'ubuntu-latest'
       run: |
-        mkdir -p cstut1PANTY-linux
-        cp -r ./publish/* cstut1PANTY-linux/
-        tar -czvf cstut1PANTY-linux.tar.gz cstut1PANTY-linux
+        tar -czvf cstut1-linux.tar.gz -C ./publish .
 
     - name: Clean Up (Optional)
       shell: pwsh  # Use PowerShell Core
@@ -97,10 +115,10 @@ jobs:
     - name: Upload Artifact
       uses: actions/upload-artifact@v4
       with:
-        name: cstut1PANTY-${{ matrix.os }}
+        name: cstut1-${{ matrix.os }}
         path: |
-          cstut1PANTY-windows.zip
-          cstut1PANTY-linux.tar.gz
+          cstut1-windows.zip
+          cstut1-linux.tar.gz
 
   release:
     needs: build
@@ -118,13 +136,13 @@ jobs:
     - name: Create Release
       uses: softprops/action-gh-release@v1
       with:
-        tag_name: cstut1PANTY-v${{ github.run_number }}
-        name: cstut1PANTY Release v${{ github.run_number }}
+        tag_name: cstut1-v${{ github.run_number }}
+        name: cstut1 Release v${{ github.run_number }}
         draft: false
         prerelease: false
         files: |
-          ./artifacts/cstut1PANTY-windows-latest/cstut1PANTY-windows.zip
-          ./artifacts/cstut1PANTY-ubuntu-latest/cstut1PANTY-linux.tar.gz
+          ./artifacts/cstut1-windows-latest/cstut1-windows.zip
+          ./artifacts/cstut1-ubuntu-latest/cstut1-linux.tar.gz
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```

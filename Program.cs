@@ -47,14 +47,43 @@ Variables and Types
 -----------------------
 ");
 
+        Console.WriteLine(@"
+----
+Integet Types - Basic
+----
+
+");
+
         //Integer variables - Signed or Unsigned 
         int age = 20;
         Console.WriteLine($"Fetish Misterss Age : {age}");
 
-        // Decimal Point number 
+        // Decimal Point number - Float is faster for running
         float temp = 20.4f;
         Console.WriteLine($"Temperature of punnai : {temp}");
 
+        // Double datatype precision 
+        double interestOnLoans = 5.5923;
+        Console.WriteLine($"Interest Rates (Double): {interestOnLoans}");
+
+        // Decimal Value 
+        decimal stockPrice = 4.33245M;
+        Console.WriteLine($"Current Stock Price (Decimal DataType): {stockPrice}");
+
+        // --- New Section --- 
+        Console.WriteLine(@"
+----
+Character types
+----
+
+");
+        // Character 
+        char grade = 'A';
+        Console.WriteLine($"Grade Got : {grade}");
+
+        // String variable 
+        string nameS = "Niki";
+        Console.WriteLine($"Fetish Mistress - {nameS}");
 
         Console.ResetColor();
     }
